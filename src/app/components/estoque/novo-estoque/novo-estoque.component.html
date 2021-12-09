@@ -1,0 +1,86 @@
+<div class="main">
+  <div class="container-fluid">
+    <div class="row mt-0 mb-4 pt-0">
+      <div class="col-md-8 ml-auto mr-auto text-center mt-5">
+        <h1 class="title">Vamos começar?</h1>
+        <h4 class="desc">Para cadastrar um novo estoque é muito simples, basta preencher todos os
+          campos abaixo.</h4>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6 mx-auto ">
+        <form role="form" [formGroup]="novoEstoqueForm" (ngSubmit)="onSubmit()"
+              class="card bg-secondary p-3"
+              id="contact-form" method="post">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Nome</label>
+                  <div class="input-group input-group-alternative">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="ni ni-circle-08"></i></span>
+                    </div>
+                    <input type="text" formControlName="nome" class="form-control"
+                           placeholder="Nome para o estoque..."
+                           aria-label="Nome para o estoque...">
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Total de mercadoria</label>
+                  <div class="input-group input-group-alternative">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="ni ni-tag"></i></span>
+                    </div>
+                    <input type="text" class="form-control" placeholder="R$ 00,00"
+                           aria-label="R$ 00,00" disabled>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Descrição</label>
+              <textarea name="descricao" class="form-control form-control-alternative"
+                        id="descricao" formControlName="descricao"
+                        rows="4"></textarea>
+            </div>
+            <div>
+              <h5 class="title pb-0">Tipos produtos</h5>
+              <hr class="col-md-12 line-primary">
+              <div *ngFor="let tipo of this.tipos let index=index">
+                <div [ngClass]="adicionarRow()">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label>Nome</label>
+                      <div class="input-group input-group-alternative">
+                        <input type="text" class="form-control" placeholder="{{tipo.nomePlural}}"
+                               disabled>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label>Quantidade</label>
+                      <div class="input-group input-group-alternative">
+                        <input type="text" class="form-control" placeholder="00"
+                               aria-label="00" disabled>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6 ml-auto">
+                <button type="submit" class="btn btn-primary pull-right">Salvar</button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

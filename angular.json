@@ -1,5 +1,8 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "cli": {
+    "analytics": "72fbefa0-4a9f-417a-a7dc-eef3da7d52d2"
+  },
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
@@ -27,7 +30,11 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.css",
+              "src/assets/css/nucleo-svg.css",
+              "src/assets/css/nucleo-icons.css",
+              "src/assets/css/font-awesome.css",
+              "src/assets/scss/argon-design-system.scss"
             ],
             "scripts": []
           },

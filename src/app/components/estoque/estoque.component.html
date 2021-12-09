@@ -1,0 +1,39 @@
+<div class="pricing-4 mt-2" id="pricing-5" (load)="listarTodosEstoques()">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8 ml-auto mr-auto text-center mt-5">
+        <h1 class="title">Estoques</h1>
+        <h4 class="desc">Todos os estoques disponivéis da Premier Store.</h4>
+      </div>
+    </div>
+    <div class="row mt-3">
+      <div class="col-md-4" *ngFor="let estoque of this.estoques, let index=index">
+        <div class="card card-pricing card-coin">
+          <div class="card-header">
+            <img src="./assets/img/theme/sketch.jpg" class="img-center shadow">
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-12 text-center">
+                <h5 class="text-uppercase">{{estoque.nome}}</h5>
+                <span>R$ {{estoque.total}}</span>
+                <hr class="bg-info">
+              </div>
+            </div>
+            <div class="row">
+              <ul class="list-group">
+                <li class="list-group-item" *ngFor="let produto of estoque.produtos">
+                  {{this.formatQuantidade(produto.quantidade)}} {{produto.tipoProduto}}
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="card-footer text-center bg-transparent">
+            <button class="btn btn-primary mb-3" (click)="redirectToProdutos(estoque.id)">Entrar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
