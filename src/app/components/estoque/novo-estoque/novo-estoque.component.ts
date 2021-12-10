@@ -3,6 +3,7 @@ import TipoProdutoRequest from "../../../DTO/request/TipoProdutoRequest";
 import {FormBuilder, FormGroup} from "@angular/forms";
 import EstoqueResponse from "../../../DTO/response/EstoqueResponse";
 import {Router} from "@angular/router";
+import EndPoint from "../../constant/EndPoint";
 
 @Component({
   selector: 'app-novo-estoque',
@@ -39,7 +40,7 @@ export class NovoEstoqueComponent implements OnInit {
   async ngOnInit() {
     // let responseJson = await fetch(`${this.apiURL}/produto/tipo`);
     // this.tipos = await responseJson.json() as Array<TipoProdutoRequest>;
-    fetch(`${this.apiURL}/produto/tipo`)
+    fetch(`${EndPoint.TIPO_PRODUTO}`)
     .then(async data => {
       this.tipos = await data.json() as Array<TipoProdutoRequest>;
     })
@@ -63,7 +64,7 @@ export class NovoEstoqueComponent implements OnInit {
     let data = this.novoEstoqueForm.value;
     console.log(data)
     this.preencheEstoqueResponse(data.nome, data.descricao);
-    fetch(`${this.apiURL}/estoque`,
+    fetch(`${EndPoint.ESTOQUE}`,
       {
         method: 'POST',
         headers: {

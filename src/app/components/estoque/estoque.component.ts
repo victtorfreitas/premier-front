@@ -1,18 +1,17 @@
 import {Component, OnInit} from '@angular/core';
 import EstoqueRequest from "../../DTO/request/EstoqueRequest";
 import {Router} from "@angular/router";
+import EstoqueService from "../../service/EstoqueService";
 
 @Component({
   selector: 'app-estoque',
   templateUrl: './estoque.component.html'
 })
 export class EstoqueComponent implements OnInit {
-  readonly apiURL: string;
   public estoques: Array<EstoqueRequest>;
   private route: Router;
 
-  constructor(route: Router) {
-    this.apiURL = 'http://localhost:8080';
+  constructor(route: Router, private estoqueService: EstoqueService) {
     this.estoques = [];
     this.listarTodosEstoques();
     this.route = route;
@@ -22,10 +21,9 @@ export class EstoqueComponent implements OnInit {
     this.listarTodosEstoques();
   }
 
-
-  async listarTodosEstoques() {
-    let response = await fetch(`${this.apiURL}/estoque`);
-    this.estoques = await response.json() as Array<EstoqueRequest>;
+  listarTodosEstoques() {
+    this.estoqueService.getTodos()
+    .then(value => this.estoques = value);
   }
 
   formatQuantidade(quantidade: number): string {
