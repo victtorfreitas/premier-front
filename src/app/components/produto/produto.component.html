@@ -1,1 +1,90 @@
-<p class="pt-200">Aqui: {{imprimirValores()}}</p>
+<div class="main">
+  <div class="container-fluid">
+    <div class="row mt-0 mb-4 pt-0">
+      <div class="col-md-8 ml-auto mr-auto text-center mt-5">
+        <h1 class="title">{{estoque.nome}}</h1>
+        <h4 class="desc">{{estoque.descricao}}</h4>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-10 mx-auto ">
+        <form role="form"
+              class="card bg-secondary p-3"
+              id="contact-form" method="post">
+
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Nome</label>
+                  <div class="input-group input-group-alternative">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="ni ni-circle-08"></i></span>
+                    </div>
+                    <input type="text" class="form-control"
+                           placeholder="Nome para o estoque..."
+                           aria-label="Nome para o estoque...">
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Total de mercadoria</label>
+                  <div class="input-group input-group-alternative">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="ni ni-tag"></i></span>
+                    </div>
+                    <input type="text" class="form-control" placeholder="R$ 00,00"
+                           aria-label="R$ 00,00" disabled>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="row" *ngFor="let rowRequest of produtoPageRequest.rows, let index=index">
+            <div class="col-lg-3 col-md-6" *ngFor="let produto of rowRequest.produtos">
+              <div class="card card-product">
+                <div class="card-image">
+                  <a href="javascript:;">
+                    <img [src]="getImagem(produto.imagem)" alt="...">
+                  </a>
+                </div>
+                <div class="card-body">
+                  <a href="javascript:;" data-toggle="teste">
+                    <h5 class="card-title">{{formataNome(produto.nome)}}</h5>
+                  </a>
+                  <div class="card-description opacity-8 mt-2">
+                    <h6>Quantidade: {{produto.quantidade}}</h6>
+                  </div>
+                  <div class="card-footer">
+                    <div class="price-container">
+                      <span class="price"> R$ {{produto.preco}}</span>
+                    </div>
+                    <button
+                      class="btn btn-simple btn-success btn-icon-only btn-sm btn-round pull-right"
+                      rel="tooltip" title="" data-placement="left"
+                      data-original-title="Add to wishlist">
+                      <i class="ni ni-fat-add"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3 ml-auto mr-auto mt-5 text-center">
+            <button rel="tooltip" class="btn btn-primary btn-round btn-simple"
+                    (click)="proximaPagina()"
+                    [disabled]="!produtoPageRequest.loadMore">Carregar mais...
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

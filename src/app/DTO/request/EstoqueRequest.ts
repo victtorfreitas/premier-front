@@ -14,4 +14,8 @@ export default class EstoqueRequest {
   nome!: string;
   total!: number;
   produtos!: Array<ProdutoRequest>;
+
+  static empty() {
+    return new EstoqueRequest(BigInt(0), 0, '', '');
+  }
 }

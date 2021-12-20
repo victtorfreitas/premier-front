@@ -9,12 +9,15 @@ import {HttpClientModule} from "@angular/common/http";
 import {CommonModule} from "@angular/common";
 import {EstoqueComponent} from "./components/estoque/estoque.component";
 import {NovoEstoqueModule} from "./components/estoque/novo-estoque/novo-estoque.module";
+import {FooterComponent} from './components/footer/footer.component';
+import {ProdutoModule} from "./components/produto/produto.module";
 
 @NgModule({
   declarations: [
     AppComponent,
     EstoqueComponent,
-    NavbarComponent
+    NavbarComponent,
+    FooterComponent
   ],
   imports: [
     AppRoutingModule,
@@ -22,6 +25,7 @@ import {NovoEstoqueModule} from "./components/estoque/novo-estoque/novo-estoque.
     RouterTestingModule,
     HttpClientModule,
     NovoEstoqueModule,
+    ProdutoModule,
     CommonModule
   ],
   providers: [],
