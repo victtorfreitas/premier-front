@@ -1,0 +1,168 @@
+<div class="main">
+  <div class="container-fluid">
+    <div class="row mt-0 mb-4 pt-0">
+      <div class="col-md-8 ml-auto mr-auto text-center mt-5">
+        <h1 class="title">Vamos começar?</h1>
+        <h4 class="desc">Para repor um produto é muito simples, basta preencher todos os
+          campos abaixo e finalizar no final da página.</h4>
+      </div>
+    </div>
+    <div class="row upper">
+      <div class="col-md-6 mx-auto ">
+        <form role="form"
+              class="card bg-secondary p-3"
+              [formGroup]="produtoForm"
+              (keydown.enter)="$event.preventDefault()"
+              (ngSubmit)="onSubmit()"
+              id="contact-form" method="post">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-5 col-sm-8 center">
+                <div class="fileinput text-center">
+                  <input type="file" (change)="handleImageChange($event)" #fileInput>
+                  <div class="thumbnail">
+                    <img src="{{ getImagem() }}" alt="...">
+                  </div>
+                  <div>
+                    <button *ngIf="file === null" type="button"
+                            class="btn btn-round btn-outline-primary btn-file mt-2"
+                            (click)="handleClick()">
+                      Selecione a imagem
+                    </button>
+                    <span *ngIf="file !== null" class="align-baseline">
+                      <button class="btn btn-round btn-warning mt-2" type="button"
+                              (click)="handleClick()">
+                        <i class="far fa-edit"></i>
+                      </button>
+                      <button class="btn btn-round btn-danger mt-2" type="button"
+                              (click)="handleRemove()">
+                        <i class="fa fa-times"></i>
+                      </button>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label>Nome</label>
+                  <div class="input-group input-group-alternative">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="ni ni-circle-08"></i></span>
+                    </div>
+                    <input type="text" formControlName="nome" class="form-control"
+                           placeholder="Nome para o produto..."
+                           aria-label="Nome para o produto...">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Categoria</label>
+                  <select
+                    class="form-control"
+                    id="choices-single-default"
+                    formControlName="categoria"
+                    name="choices-single-default">
+                    <option disabled="disabled" selected="selected" value="0">
+                      Selecione a categoria
+                    </option>
+                    <option value="{{categoria.id}}"
+                            *ngFor="let categoria of categorias"> {{categoria.nome}}</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-lg-4 col-md-6">
+                <label> Quantidade </label>
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <button
+                      type="button"
+                      class="btn btn-success btn-round"
+                      (click)="minusQuantidade()"
+                      id="down">
+                      <i class="ni ni-fat-delete"> </i>
+                    </button>
+                  </div>
+                  <input
+                    class="form-control input-group-text"
+                    id="myNumber"
+                    type="text"
+                    mask="000"
+                    formControlName="quantidade"
+                    value="1">
+                  <div class="input-group-append">
+                    <button
+                      type="button"
+                      class="btn btn-success btn-round"
+                      (click)="plusQuantidade()"
+                      id="up">
+                      <i class="ni ni-fat-add"> </i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Preço</label>
+                  <div class="input-group input-group-alternative">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="ni ni-tag"></i></span>
+                    </div>
+                    <input type="text" class="form-control"
+                           formControlName="preco"
+                           placeholder="R$ 00,00" currencyMask
+                           [options]="{prefix: 'R$', thousands: '.', decimal: ','}"
+                           aria-label="R$ 00,00">
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label> Tag </label>
+                  <div class="input-group input-group-alternative">
+                    <input
+                      class="form-control"
+                      id="tags"
+                      formControlName="tag"
+                      placeholder="Adicionar Tags"
+                      type="text">
+                    <div class="input-group-append">
+                      <button class="btn btn-outline-secondary text-black-50"
+                              type="button"
+                              [disabled]="!produtoForm.value.tag"
+                              aria-pressed="true"
+                              (click)="addTag()">
+                        Add
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="form-group" *ngIf="tags">
+              <button class="btn btn-info btn-sm mt-2" data-button=""
+                      data-deletable=""
+                      *ngFor="let tag of tags">
+                {{tag}}
+                <i (click)="removeTagByIndex(tag)" id="remove-tag" class="fa fa-times"
+                   aria-hidden="true"></i>
+              </button>
+            </div>
+            <div class="row">
+              <div class="col-md-6 ml-auto">
+                <button type="submit" class="btn btn-primary pull-right">Salvar</button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+

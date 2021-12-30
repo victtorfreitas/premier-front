@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
-import EstoqueService from "../../service/EstoqueService";
-import EstoqueRequest from "../../DTO/request/EstoqueRequest";
-import ProdutoPageRequest, {RowRequest} from "../../DTO/request/ProdutoPageRequest";
+import {ActivatedRoute, Router} from "@angular/router";
+import EstoqueService from "../../service/estoque.service";
+import EstoqueRequest from "../../DTO/request/estoque.request";
+import ProdutoPageRequest, {RowRequest} from "../../DTO/request/produto.page.request";
 import {DomSanitizer} from "@angular/platform-browser";
 
 @Component({
@@ -16,9 +16,10 @@ export class ProdutoComponent implements OnInit {
   produtoPageRequest: ProdutoPageRequest;
   numberPage: number;
 
-  constructor(private route: ActivatedRoute,
+  constructor(private activatedRoute: ActivatedRoute,
               private estoqueService: EstoqueService,
-              private sanitizer: DomSanitizer) {
+              private sanitizer: DomSanitizer,
+              private router: Router) {
     this.idEstoque = this.buscaIdEstoque();
     this.estoque = EstoqueRequest.empty();
     this.produtoPageRequest = new ProdutoPageRequest(new Array<any>(), false);
@@ -27,7 +28,7 @@ export class ProdutoComponent implements OnInit {
 
   private buscaIdEstoque(): number {
     let id: number = 0;
-    this.route.params.subscribe(param => {
+    this.activatedRoute.params.subscribe(param => {
       id = param['id'];
     });
     return id;
@@ -72,10 +73,15 @@ export class ProdutoComponent implements OnInit {
   }
 
   getImagem(img: string) {
-    if (img) {
-      let objectURL = 'data:image/png;base64,' + img;
-      return this.sanitizer.bypassSecurityTrustUrl(objectURL);
-    }
-    return "../assets/img/pages/hat.png";
+    // if (img) {
+    //   let objectURL = 'data:image/png;base64,' + img;
+    //   return this.sanitizer.bypassSecurityTrustUrl(objectURL);
+    // }
+    //TODO: Descomentar quando produtos estiverem sendo cadastrado
+    return "../assets/img/pages/shirt.png";
+  }
+
+  linkParaProduto(id: number) {
+    this.router.navigate(['estoque/' + this.idEstoque + '/produto/' + id]);
   }
 }

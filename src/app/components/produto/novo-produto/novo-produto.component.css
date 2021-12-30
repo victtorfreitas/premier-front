@@ -1,0 +1,16 @@
+#remove-tag:hover {
+  color: #dc3545;
+}
+
+.fileinput input {
+  display: none;
+}
+
+/*::ng-deep .max-upload {*/
+/**/
+/*}*/
+.fileinput .thumbnail > img {
+  max-height: 100%;
+  max-width: 100%;
+
+}

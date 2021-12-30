@@ -3,6 +3,7 @@ import {CommonModule} from '@angular/common';
 import {ProdutoComponent} from './produto.component';
 import {BrowserModule} from "@angular/platform-browser";
 import {ReactiveFormsModule} from "@angular/forms";
+import {RouterModule} from "@angular/router";
 
 @NgModule({
   declarations: [
@@ -11,7 +12,8 @@ import {ReactiveFormsModule} from "@angular/forms";
   imports: [
     CommonModule,
     BrowserModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    RouterModule,
   ]
 })
 export class ProdutoModule { }

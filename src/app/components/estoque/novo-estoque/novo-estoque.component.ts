@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import TipoProdutoRequest from "../../../DTO/request/TipoProdutoRequest";
+import TipoProdutoRequest from "../../../DTO/request/tipo.produto.request";
 import {FormBuilder, FormGroup} from "@angular/forms";
-import EstoqueResponse from "../../../DTO/response/EstoqueResponse";
+import EstoqueResponse from "../../../DTO/response/estoque.response";
 import {Router} from "@angular/router";
 import EndPoint from "../../constant/EndPoint";
 
@@ -62,7 +62,6 @@ export class NovoEstoqueComponent implements OnInit {
 
   onSubmit() {
     let data = this.novoEstoqueForm.value;
-    console.log(data)
     this.preencheEstoqueResponse(data.nome, data.descricao);
     fetch(`${EndPoint.ESTOQUE}`,
       {

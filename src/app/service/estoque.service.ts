@@ -1,6 +1,6 @@
 import {Injectable} from "@angular/core";
 import EndPoint from "../components/constant/EndPoint";
-import EstoqueRequest from "../DTO/request/EstoqueRequest";
+import EstoqueRequest from "../DTO/request/estoque.request";
 
 @Injectable({
   providedIn: 'root',

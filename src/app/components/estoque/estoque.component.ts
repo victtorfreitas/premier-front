@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import EstoqueRequest from "../../DTO/request/EstoqueRequest";
+import EstoqueRequest from "../../DTO/request/estoque.request";
 import {Router} from "@angular/router";
-import EstoqueService from "../../service/EstoqueService";
+import EstoqueService from "../../service/estoque.service";
 
 @Component({
   selector: 'app-estoque',

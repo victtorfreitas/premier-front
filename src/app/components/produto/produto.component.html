@@ -56,8 +56,9 @@
                   </a>
                 </div>
                 <div class="card-body">
-                  <a href="javascript:;" data-toggle="teste">
-                    <h5 class="card-title">{{formataNome(produto.nome)}}</h5>
+                  <a href="#">
+                    <h5 class="card-title" data-toggle="tooltip" data-placement="left"
+                        title="{{produto.nome}}">{{formataNome(produto.nome)}}</h5>
                   </a>
                   <div class="card-description opacity-8 mt-2">
                     <h6>Quantidade: {{produto.quantidade}}</h6>
@@ -69,7 +70,7 @@
                     <button
                       class="btn btn-simple btn-success btn-icon-only btn-sm btn-round pull-right"
                       rel="tooltip" title="" data-placement="left"
-                      data-original-title="Add to wishlist">
+                      data-original-title="Add to wishlist" (click)="linkParaProduto(produto.id)">
                       <i class="ni ni-fat-add"></i>
                     </button>
                   </div>

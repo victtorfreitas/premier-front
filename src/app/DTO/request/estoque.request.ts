@@ -1,4 +1,4 @@
-import ProdutoRequest from "./ProdutoRequest";
+import {ProdutoEstoqueRequest} from "./produto.request";
 
 export default class EstoqueRequest {
   constructor(id: bigint, total: number, nome: string, descricao: string) {
@@ -13,7 +13,7 @@ export default class EstoqueRequest {
   descricao!: string;
   nome!: string;
   total!: number;
-  produtos!: Array<ProdutoRequest>;
+  produtos!: Array<ProdutoEstoqueRequest>;
 
   static empty() {
     return new EstoqueRequest(BigInt(0), 0, '', '');
