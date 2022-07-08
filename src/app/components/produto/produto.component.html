@@ -14,30 +14,40 @@
 
           <div class="card-body">
             <div class="row">
-              <div class="col-md-6">
+              <div class="col-md-9">
                 <div class="form-group">
-                  <label>Nome</label>
+                  <label>Pesquisar</label>
                   <div class="input-group input-group-alternative">
                     <div class="input-group-prepend">
-                      <span class="input-group-text"><i class="ni ni-circle-08"></i></span>
+                      <span class="input-group-text"><i class="fa fa-search"></i></span>
                     </div>
-                    <input type="text" class="form-control"
-                           placeholder="Nome para o estoque..."
-                           aria-label="Nome para o estoque...">
+                    <input type="text" class="form-control" (keyup)="buscaPorTags($event)"
+                           placeholder="Busque pelas Tags cadastradas..."
+                           aria-label="Busque pelas Tags cadastradas">
                   </div>
                 </div>
               </div>
-              <div class="col-md-6">
+              <div class="col-md-3">
                 <div class="form-group">
-                  <label>Total de mercadoria</label>
-                  <div class="input-group input-group-alternative">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text"><i class="ni ni-tag"></i></span>
-                    </div>
-                    <input type="text" class="form-control" placeholder="R$ 00,00"
-                           aria-label="R$ 00,00" disabled>
-                  </div>
+                  <label>Categoria</label>
+                  <select
+                    class="form-control"
+                    id="choices-single-default"
+                    formControlName="categoria"
+                    name="choices-single-default"
+                    (change)="buscaPorCategoria($event.target)">
+                    <option selected="selected" value="0">
+                      Todas
+                    </option>
+                    <option value="{{categoria.id}}"
+                            *ngFor="let categoria of categorias"> {{categoria.nome}}</option>
+                  </select>
                 </div>
+              </div>
+              <div class="col-md-12 font-small">
+                <p class="text-black-50 text-right">Total produtos:
+                  <small>{{this.produtoPageRequest.qtdProduto}}</small>
+                </p>
               </div>
             </div>
           </div>

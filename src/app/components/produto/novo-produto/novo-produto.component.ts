@@ -29,8 +29,9 @@ export class NovoProdutoComponent implements OnInit {
   constructor(private activatedRoute: ActivatedRoute,
               private produtoService: ProdutoService,
               private categoriaService: CategoriaService,
-              private route: Router,
-              private formBuilder: FormBuilder) {
+              private formBuilder: FormBuilder,
+              private router: Router) {
+
     this.id = 0;
     this.idEstoque = 0;
     this.tags = [];
@@ -43,6 +44,8 @@ export class NovoProdutoComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+
     this.buscaCategorias();
     this.file = null;
     this.imagePreviewUrl = "assets/img/image_placeholder.jpg";
@@ -52,7 +55,7 @@ export class NovoProdutoComponent implements OnInit {
     let produto: ProdutoResponse = this.getProdutoResponse();
     this.produtoService.salvar(this.id, produto);
     this.produtoForm.reset();
-    this.route.navigate(['estoque/' + this.idEstoque + '/produto']);
+    this.router.navigate(['estoque/' + this.idEstoque + '/produto'], {skipLocationChange: true});
   }
 
   preencheId() {
@@ -192,5 +195,9 @@ export class NovoProdutoComponent implements OnInit {
     return this.imagePreviewUrl == null ?
       "assets/img/image_placeholder.jpg"
       : this.imagePreviewUrl;
+  }
+
+  linkParaListagemProdutos() {
+    this.router.navigate(['estoque/' + this.idEstoque + '/produto']);
   }
 }

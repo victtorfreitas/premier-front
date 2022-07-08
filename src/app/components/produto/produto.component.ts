@@ -4,6 +4,9 @@ import EstoqueService from "../../service/estoque.service";
 import EstoqueRequest from "../../DTO/request/estoque.request";
 import ProdutoPageRequest, {RowRequest} from "../../DTO/request/produto.page.request";
 import {DomSanitizer} from "@angular/platform-browser";
+import {ProdutoService} from "../../service/produto.service";
+import CategoriaRequest from "../../DTO/request/categoria.request";
+import {CategoriaService} from "../../service/categoria.service";
 
 @Component({
   selector: 'app-produto',
@@ -14,16 +17,24 @@ export class ProdutoComponent implements OnInit {
   private readonly idEstoque: number;
   estoque: EstoqueRequest;
   produtoPageRequest: ProdutoPageRequest;
+  categorias: Array<CategoriaRequest>;
   numberPage: number;
+  tags: string;
+  categoriaId: number;
 
   constructor(private activatedRoute: ActivatedRoute,
               private estoqueService: EstoqueService,
+              private produtoService: ProdutoService,
+              private categoriaService: CategoriaService,
               private sanitizer: DomSanitizer,
               private router: Router) {
     this.idEstoque = this.buscaIdEstoque();
     this.estoque = EstoqueRequest.empty();
-    this.produtoPageRequest = new ProdutoPageRequest(new Array<any>(), false);
+    this.categorias = new Array<CategoriaRequest>();
+    this.produtoPageRequest = new ProdutoPageRequest(new Array<any>(), false, 0);
     this.numberPage = 0;
+    this.categoriaId = 0;
+    this.tags = '';
   }
 
   private buscaIdEstoque(): number {
@@ -35,8 +46,10 @@ export class ProdutoComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     this.buscaDadosBaseEstoque();
     this.buscaProdutos();
+    this.buscaCategorias();
   }
 
   private buscaDadosBaseEstoque() {
@@ -46,9 +59,19 @@ export class ProdutoComponent implements OnInit {
     });
   }
 
-  private buscaProdutos() {
-    this.estoqueService.getProdutosById(this.idEstoque, this.numberPage)
+  private buscaCategorias() {
+    this.categoriaService.getAll()
     .then(response => {
+      response.forEach(categoria => {
+        this.categorias.push(categoria);
+      })
+    })
+  }
+
+  private buscaProdutos() {
+    this.estoqueService.getProdutosById(this.idEstoque, this.numberPage, this.tags, this.categoriaId)
+    .then(response => {
+      console.log(response);
       this.produtoPageRequest = response;
     });
   }
@@ -62,7 +85,7 @@ export class ProdutoComponent implements OnInit {
 
   proximaPagina() {
     this.numberPage = this.numberPage + 1;
-    this.estoqueService.getProdutosById(this.idEstoque, this.numberPage)
+    this.estoqueService.getProdutosById(this.idEstoque, this.numberPage, this.tags, this.categoriaId)
     .then(response => {
       let rows: Array<RowRequest> = response.rows;
       rows.forEach(row => {
@@ -73,15 +96,34 @@ export class ProdutoComponent implements OnInit {
   }
 
   getImagem(img: string) {
-    // if (img) {
-    //   let objectURL = 'data:image/png;base64,' + img;
-    //   return this.sanitizer.bypassSecurityTrustUrl(objectURL);
-    // }
+    if (img) {
+      let objectURL = 'data:image/png;base64,' + img;
+      return this.sanitizer.bypassSecurityTrustUrl(objectURL);
+    }
     //TODO: Descomentar quando produtos estiverem sendo cadastrado
     return "../assets/img/pages/shirt.png";
   }
 
   linkParaProduto(id: number) {
     this.router.navigate(['estoque/' + this.idEstoque + '/produto/' + id]);
+  }
+
+  buscaPorTags(event: any) {
+    let data = event.target.value;
+    if (data.length > 3) {
+      this.tags = data;
+      this.numberPage = 0;
+      this.buscaProdutos();
+    } else {
+      this.tags = '';
+      this.numberPage = 0;
+      this.buscaProdutos();
+    }
+  }
+
+  buscaPorCategoria(target: any) {
+    this.categoriaId = target.value;
+    this.numberPage = 0;
+    this.buscaProdutos();
   }
 }

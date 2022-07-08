@@ -25,9 +25,11 @@ export class RowRequest {
 export default class ProdutoPageRequest {
   rows!: Array<RowRequest>
   loadMore: boolean;
+  qtdProduto: number;
 
-  constructor(rows: Array<RowRequest>, loadMore: boolean) {
+  constructor(rows: Array<RowRequest>, loadMore: boolean, qtdProduto: number) {
     this.rows = rows;
     this.loadMore = loadMore;
+    this.qtdProduto = qtdProduto;
   }
 }

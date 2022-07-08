@@ -25,9 +25,17 @@ export default class EstoqueService {
     )
   }
 
-  getProdutosById(idEstoque: number, numberPage: number): Promise<any> {
+  getProdutosById(idEstoque: number, numberPage: number, tags: string, categoriaId: number): Promise<any> {
     let url = new URL(`${EndPoint.ESTOQUE}/${idEstoque}/produto`);
-    let params = [['page', numberPage.toString()]];
+    let params = [['page', numberPage.toString()]]
+
+    if (tags.length > 0) {
+      params.push(['tags', tags])
+    }
+    if (categoriaId > 0) {
+      params.push(['categoriaId', categoriaId.toString()])
+    }
+
     url.search = new URLSearchParams(params).toString();
     return fetch(url.toString())
     .then(response => {

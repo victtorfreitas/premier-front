@@ -14,3 +14,16 @@
   max-width: 100%;
 
 }
+
+.img-list-produt {
+  width: 200px;
+  height: 220px;
+}
+
+.button-float-right {
+  float: right;
+}
+
+.margin-left {
+  margin-left: 5px !important;
+}

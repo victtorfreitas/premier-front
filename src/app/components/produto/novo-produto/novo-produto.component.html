@@ -1,13 +1,6 @@
 <div class="main">
   <div class="container-fluid">
-    <div class="row mt-0 mb-4 pt-0">
-      <div class="col-md-8 ml-auto mr-auto text-center mt-5">
-        <h1 class="title">Vamos começar?</h1>
-        <h4 class="desc">Para repor um produto é muito simples, basta preencher todos os
-          campos abaixo e finalizar no final da página.</h4>
-      </div>
-    </div>
-    <div class="row upper">
+    <div class="row upper mt-0 mb-4 pt-2">
       <div class="col-md-6 mx-auto ">
         <form role="form"
               class="card bg-secondary p-3"
@@ -21,7 +14,7 @@
                 <div class="fileinput text-center">
                   <input type="file" (change)="handleImageChange($event)" #fileInput>
                   <div class="thumbnail">
-                    <img src="{{ getImagem() }}" alt="...">
+                    <img src="{{ getImagem() }}" alt="..." class="img-list-produt">
                   </div>
                   <div>
                     <button *ngIf="file === null" type="button"
@@ -146,17 +139,22 @@
               </div>
             </div>
             <div class="form-group" *ngIf="tags">
-              <button class="btn btn-info btn-sm mt-2" data-button=""
-                      data-deletable=""
-                      *ngFor="let tag of tags">
+              <a type="button" class="btn btn-info btn-sm mt-2 text-white" data-button=""
+                 data-deletable=""
+                 *ngFor="let tag of tags">
                 {{tag}}
                 <i (click)="removeTagByIndex(tag)" id="remove-tag" class="fa fa-times"
                    aria-hidden="true"></i>
-              </button>
+              </a>
             </div>
             <div class="row">
-              <div class="col-md-6 ml-auto">
-                <button type="submit" class="btn btn-primary pull-right">Salvar</button>
+              <div class="col-md-12 ">
+                <button type="submit" class="btn btn-sm btn-success button-float-right margin-left">
+                  Salvar
+                </button>
+                <button (click)="linkParaListagemProdutos()"
+                        class="btn btn-sm btn-primary button-float-right">Voltar
+                </button>
               </div>
             </div>
           </div>
